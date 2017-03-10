@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <script src='./jquery.3.1.1.js'></script>
+    <link rel="stylesheet/less" type="text/css" href="./imgNav.less">
+    <script src="less2.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="imgPreShow" style='width:70%;height: 300px;'>
+        <img src="" alt="" style="height: inherit;width: inherit;">
+    </div>
+    <div class='imgNav'>
+        <a href="#" class='imgPre'></a>
+        <div class="imgShow">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="./test0.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./test1.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./test2.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./test3.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./test0.jpg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="./test1.jpg" alt="">
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <a href="#" class='imgNext'></a>
+    </div>
+
+    <script>
+        $(function() {
+
+                $('.imgPre').on('click', function() {
+                    objMove('left')
+                })
+                $('.imgNext').on('click', function() {
+                    objMove('right')
+                })
+                clickImgChangeScene(null, imgPreShow)
+
+
+
+            })
+            // 图片预览
+        function imgPreShow(imgSrc) {
+            console.log('imgPreShow:', imgSrc)
+            $('.imgPreShow img').attr('src', imgSrc.imgSrc)
+        }
+
+        function objMove(moveTag) {
+            var moveWidth = $('.imgShow').find('li').eq(0).css('width');
+            // console.log({
+            //     moveWidth
+            // })
+            if (moveTag == 'left') {
+                var aa = $('.imgShow').find('li').first().remove();
+                $('.imgShow ul').append(aa)
+            }
+            if (moveTag == 'right') {
+                var aa = $('.imgShow').find('li').last().remove();
+                $('.imgShow ul').prepend(aa)
+            }
+
+
+            // $('.imgShow').find('ul').animate({
+            //     left: "-" + moveWidth
+            // }, "slow",function() {
+            //     $('.imgShow').find('li').first().remove();
+            // })
+
+            // console.log({
+            //     moveWidth
+            // });
+        }
+
+        function clickImgChangeScene(obj, fn) {
+            $('.imgNav .imgShow').on('click', 'li', function() {
+                var imgSrc = $(this).find('img').attr('src')
+                console.log({
+                    imgSrc
+                })
+                var paramsObj = {
+                    imgSrc,
+                }
+                if (fn) {
+                    fn(paramsObj)
+                }
+
+            })
+        }
+    </script>
+</body>
+
+</html>
